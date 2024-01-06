@@ -49,13 +49,15 @@ int main()
 	f1.print();
 	f2.print();
 	//正则文法的构造，括号里传的是状态数，也就是非终结符的个数
-	RG r1(2);
-	//正则文法添加表达式
-	r1.addExp('A', "0B");
-	r1.addExp('A', "0");
-	r1.addExp('B', "1B");
-	r1.addExp('B', "1");
-	//正则文法打印
+	//RG r1(2);
+	////正则文法添加表达式
+	//r1.addExp('A', "0B");
+	//r1.addExp('A', "0");
+	//r1.addExp('B', "1B");
+	//r1.addExp('B', "1");
+	////正则文法打印
+	//r1.print();
+	RG r1 = f1.convert();
 	r1.print();
 	return 0;
 }

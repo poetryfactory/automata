@@ -1,6 +1,5 @@
 #pragma once
 #include "global.h"
-#include "DFA.h"
 #include "NFA.h"
 class RG
 {

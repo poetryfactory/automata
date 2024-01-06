@@ -52,3 +52,48 @@ Transition DFA::addTransition(State _from, State _to, char _input)
 	Transitions[{_from, _input}] = _to;
 	return Transition(_from, _to, _input);
 };
+
+std::vector<State> DFA::getStates() 
+{
+	return States;
+}
+
+RG DFA::convert()
+{
+	// 创建一个RG的实例，其非终结符的数量等于DFA中状态的数量  
+	RG rg(this->getStates().size());
+
+	// 创建一个映射，将每个状态与一个大写字母关联  
+	std::map<State, char> stateToLetter;
+	char toLetter = 'A'; // 开始的字母  
+
+	// 遍历DFA的所有状态，为每个状态分配一个大写字母  
+	for (const auto& state : this->getStates())
+	{
+		stateToLetter[state] = toLetter++;
+	}
+
+	// 遍历DFA的所有转换  
+	for (auto& transition : this->Transitions)
+	{
+		// 获取DFA的起始状态、结束状态和输入符号  
+		State fromState = transition.first.first;
+		char inputSymbol = transition.first.second;
+		State toState = transition.second;
+
+		// 将DFA的每个转换转换为一个RG表达式，转换规则为：δ(q,a)=p~q->ap、δ(q,a)=p∈F~q->a，格式为“非终结符 > (字符)(非终结符)”、“非终结符 > 字符”
+		char letter = static_cast<char>(stateToLetter[toState]);
+		std::string expression = inputSymbol + std::string(1, letter);
+
+		// 将表达式“非终结符 > (字符)(非终结符)”添加到RG中，使用状态对应的大写字母作为参数
+		rg.addExp(stateToLetter[fromState], expression);
+
+		// 若toState是终止状态，则将表达式“非终结符 > 字符”添加到RG中
+		if (toState.isEndState()) 
+			rg.addExp(stateToLetter[fromState], std::string(1, inputSymbol));
+	}
+
+	// 返回转换后的RG  
+	return rg;
+}
+
