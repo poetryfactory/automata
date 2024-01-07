@@ -17,5 +17,6 @@ public:
 	RG convert();
 protected:
 	std::unordered_map<std::pair<State, char>, State, Hash, Equal> Transitions;
+	bool printdfa_flag = 0;
 };
 

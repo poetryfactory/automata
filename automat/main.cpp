@@ -84,7 +84,7 @@ int main()
 	//r1.addExp('B', "1B");
 	//r1.addExp('B', "1");
 	////正则文法打印
-	//r1.print();
+	f1.print();
 	RG r1 = f1.convert();
 	r1.print();
 	return 0;
