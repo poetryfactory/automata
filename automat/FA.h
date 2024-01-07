@@ -17,13 +17,14 @@ struct Hash
 	std::size_t operator() (const std::pair<State, char>& self) const
 	{
 		static 	std::hash<std::string> hash_str;
-		return hash_str(self.first.getName() + self.second);
+		return hash_str(self.first.getName() + self.second)+(self.second<<5)*(self.first.getName()[1]<<3);
 	}
 };
 
 class FA
 {
 public:
+	FA();
 	FA(State _startState, std::vector<State> _endStates, std::vector<State> _states, std::vector<Transition> _transitions);
 	FA(std::vector<State> _states, std::vector<Transition> _transitions);
 	std::string getStateName(int _id);
@@ -31,6 +32,7 @@ public:
 	int size();
 	std::vector<State> getEndStates();
 	void addState(State _state);
+	std::vector<State> getStates();
 	State addState(std::string _name,int _type);
 	virtual void addTransition(Transition _tr)=0;
 	virtual void print()=0;
