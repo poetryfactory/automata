@@ -15,6 +15,11 @@ FA::FA(State _startState, std::vector<State> _endStates, std::vector<State> _sta
 	}
 };
 
+FA::FA()
+{
+
+};
+
 FA::FA(std::vector<State> _states, std::vector<Transition> _transitions)
 {
 	this->id = 0;
@@ -74,6 +79,11 @@ void FA::addState(State _state)
 	id++;
 	States.emplace_back(_state);
 };
+
+std::vector<State> FA::getStates()
+{
+	return this->States;
+}
 
 int FA::size()
 {

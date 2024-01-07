@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <math.h>
+#include <cmath>
+#include <string.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits>
@@ -16,6 +18,8 @@
 #include <set>
 #include <bitset>
 #include <list>
+#include <fstream>
+#include <ostream>
 #include <utility>
 #include <tuple>
 #include <exception>

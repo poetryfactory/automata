@@ -1,0 +1,16 @@
+digraph graphDFA{ 
+s[shape=circle, color=white];q1;
+{rank="same";s;q1}
+s->q1[label="\n"];
+q3;
+{rank="same";q1;q3}
+q1->q3[label="0"]
+digraph graphDFA{ 
+s[shape=circle, color=white];q1;
+digraph graphDFA{ 
+s[shape=circle, color=white];q1;
+q3;
+{rank="same";q1;q3}
+q1->q3[label="0"]
+digraph graphDFA{ 
+s[shape=circle, color=white];q1;

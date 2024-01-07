@@ -24,6 +24,7 @@ State DFA::getTransitionState(State _from, int _input)
 void DFA::print()
 {
 	std::cout << "\t0\t1" << std::endl;  //µÚÒ»ÐÐ
+
 	for (int i = 0;i < (int)this->States.size();++i)
 	{
 		std::string col = "";
@@ -39,8 +40,37 @@ void DFA::print()
 		col += this->getTransitionState(States[i], '0').getName() + "\t";
 		col += this->getTransitionState(States[i], '1').getName() + "\t";
 		std::cout << col << std::endl;
+		printGraph(col);
 	}
 };
+
+void DFA::printGraph(const std::string& col) {
+	std::fstream printDFA;
+	printDFA.open("DFA.dot", std::ios::app);
+	printDFA << "digraph graphDFA{ " << std::endl;
+	printDFA << "s[shape=circle, color=white];q1;" << std::endl;
+	//std::cout << col[0] << std::endl;
+	if (col[0] == '#') {
+		std::cout << "aaa" << std::endl;
+		printDFA << "{rank=\"same\";s;q1}" << std::endl;
+		printDFA << "s->q1[label=\"\\n\"];" << std::endl;
+	}
+	if (col[5] == '1' || col[5] == '2' || col[5] == '3') {
+		std::cout << "bbb" << std::endl;
+		printDFA << "q" << col[5] << ";" << std::endl;
+		printDFA << "{rank=\"same\";q1;" << "q" << col[5] << "}" << std::endl;
+		printDFA << "q1->" << "q" << col[5] << "[label=\"0\"]" << std::endl;
+	}
+	else if (col[8] == '1' || col[8] == '2' || col[8] == '3') {
+		printDFA << "q" << col[8] << std::endl;
+	}
+	/*if (col[0] == 'q1' || col[0] == 'q2' || col[0] == 'q3') {
+		printDFA << col[0] << ";" << std::endl;
+		printDFA << "{rank=\"same\";q1;" << col[0] << "}" << std::endl;
+		printDFA << "q1->" << col[0] << "[label=\"0\"]" << std::endl;
+	}*/
+	printDFA.close();
+}
 
 void DFA::addTransition(Transition _tr)
 {

@@ -51,7 +51,7 @@ bool State::operator < (State b) const
 
 bool State::operator == (State b) const
 {
-	return this->state_id == b.getID() || this->state_name == b.getName();
+	return this->state_name == b.getName();
 };
 
 void State::setName(std::string _name)
