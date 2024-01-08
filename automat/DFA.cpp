@@ -1,5 +1,10 @@
 #include "DFA.h"
 
+DFA::DFA()
+{
+
+};
+
 DFA::DFA(State _startState, std::vector<State> _endStates, std::vector<State> _states, std::vector<Transition> _transitions) : FA(_startState, _endStates, _states, _transitions)
 {
 	for (auto &t : _transitions)
@@ -165,4 +170,133 @@ RG DFA::convert()
 
 	// 返回转换后的RG
 	return rg;
+}
+
+
+DFA DFA::minimizeDFA() {
+	// 构建等价关系矩阵
+	int n = this->size();
+	std::vector<std::vector<bool>> equivalent(n+5, std::vector<bool>(n+5, false));
+
+	// 初始化标记矩阵
+	std::vector<std::vector<bool>> marked(n+5, std::vector<bool>(n+5, false));
+
+	// 标记非接受状态与接受状态的区别
+	for (State s1:this->getStates()) {
+		for (State s2:this->getStates()) {
+			if ((s1.isEndState()&&!s2.isEndState())||(!s1.isEndState()&&s2.isEndState())) {
+				equivalent[s1.getName()[1]-'0'][s2.getName()[1]-'0'] = true;
+				equivalent[s2.getName()[1] - '0'][s1.getName()[1] - '0'] = true;
+			}
+		}
+	}
+	// 逐步标记等价状态
+	markEquivalentStates(equivalent, marked);
+	/*for (int i = 1;i <= n + 1;++i)
+	{
+		for (int j = 1;j <= n + 1;++j)
+		{
+			if(i!=j&&equivalent[i][j]==0)
+			std::cout << "i=" << i << " j=" << j << " e[i][j]=" << equivalent[i][j] << " ";
+		}
+		std::cout<<std::endl;
+	}*/
+	// 构建最小化DFA
+	std::vector<std::set<State>> equivalence_classes;
+	std::vector<bool> vis(n + 1, false);
+	for (auto s1: this->getStates()) {
+		if (vis[s1.getName()[1] - '0'])	continue;
+		std::set<State> eq_class;
+		eq_class.insert(s1);
+		for (auto s2:this->getStates()) {
+			if (!equivalent[s1.getName()[1] - '0'][s2.getName()[1] - '0']) {
+				eq_class.insert(s2);
+				vis[s2.getName()[1] - '0'] = 1;
+			}
+		}
+		equivalence_classes.push_back(eq_class);
+	}
+
+	// 构建最小化DFA的新状态集合和转移关系
+	int m = equivalence_classes.size();
+	//std::cout << m << std::endl;
+	std::vector<Transition> min_transitions;
+	std::vector<State> min_states(m);
+
+	for (int i = 0; i < m; ++i) {
+		State s("q" + std::to_string(i + 1), NORMAL_TYPE);
+		for (auto state : equivalence_classes[i])
+		{
+			if (state.isEndState())
+			{
+				s.setType(END_TYPE);
+			}
+			else if (state.isStartState())
+			{
+				s.setType(START_TYPE);
+			}
+		}
+		min_states[i] = s;
+	}
+	DFA dfa(min_states, {});
+	for (int i = 0; i < m; ++i) {
+		for (int j = '0'; j <= '1'; ++j) {
+			std::set<State> next_states;
+			for (auto state : equivalence_classes[i]) {
+				State nxt = Transitions[{state, j}];
+				for (int idx = 0;idx < m;++idx)
+				{
+					if (equivalence_classes[idx].find(nxt) != equivalence_classes[idx].end())
+					{
+						dfa.addTransition(min_states[i], min_states[idx], j);
+					}
+				}
+			}
+		}
+	}
+	return dfa;
+}
+
+void DFA::markEquivalentStates(std::vector<std::vector<bool>>& equivalent, std::vector<std::vector<bool>>& marked) 
+{
+	int n = this->size();
+	bool changes = true;
+
+	while (changes) {
+		changes = false;
+		for (State s1 : this->getStates()) 
+		{
+			for (State s2 : this->getStates()) 
+			{
+				if (!marked[s1.getName()[1] - '0'][s2.getName()[1] - '0'] && !equivalent[s1.getName()[1] - '0'][s2.getName()[1] - '0']) 
+				{
+					for (int k = '0'; k <= '1'; ++k) 
+					{
+						State state1 = Transitions[{s1, k}];
+						State state2 = Transitions[{s2, k}];
+						if (equivalent[state1.getName()[1] - '0'][state2.getName()[1] - '0']) 
+						{
+							equivalent[s1.getName()[1] - '0'][s2.getName()[1] - '0'] = true;
+							equivalent[s2.getName()[1] - '0'][s1.getName()[1] - '0'] = true;
+							changes = true;
+							break;
+						}
+					}
+					if (changes) 
+					{
+						break;
+					}
+				}
+			}
+		}
+		// 标记已处理的状态
+		for (State s1 : this->getStates()) {
+			for (State s2 : this->getStates()) {
+				if (equivalent[s1.getName()[1] - '0'][s2.getName()[1] - '0']) {
+					marked[s1.getName()[1] - '0'][s2.getName()[1] - '0'] = true;
+					marked[s2.getName()[1] - '0'][s1.getName()[1] - '0'] = true;
+				}
+			}
+		}
+	}
 }

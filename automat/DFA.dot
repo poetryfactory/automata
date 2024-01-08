@@ -3,19 +3,19 @@ s[shape=circle, color=white];
 q1;
 {rank="same";s;q1}
 s->q1[label = "\n"];
-q3;
-{rank="same";q1;q3 }
-q1->q3[label = "0"];
+q1;
+{rank="same";q1;q1 }
+q1->q1[label = "0"];
 q2;
 q1->q2[label="1"];
-q2;
+q2[shape="doublecircle"];
 q2;
 q2->q2[label = "0"];
-q1;
-q2->q1[label="1"];
-q3[shape="doublecircle"];
+q3;
+q2->q3[label = "1"];
+q3;
 q3;
 q3->q3[label = "0"];
-q2;
-q3->q2[label = "1"];
+q3;
+q3->q3[label="1"];
 }

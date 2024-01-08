@@ -8,7 +8,7 @@
 
 int main()
 {
-	State q1("q1",START_TYPE), q2("q2",NORMAL_TYPE), q3("q3",END_TYPE);   //创建一些状态，调用状态的构造函数(状态名，状态类型)
+	State q1("q1",START_TYPE), q2("q2",NORMAL_TYPE), q3("q3",END_TYPE), q4("q4", END_TYPE),q5("q5", END_TYPE),q6("q6", NORMAL_TYPE);   //创建一些状态，调用状态的构造函数(状态名，状态类型)
 	Transition t1(q1, q3, '0'), t2(q1, q2, '1'), t3(q2, q2, '0'), t4(q2, q1, '1'), t5(q3, q3, '0'), t6(q3, q2, '1');   //创建状态间的转换(DFA)
 	//创建状态间的转换(NFA)
 	Transition t01(q1, std::vector<State>{ q3 }, '0'), t02(q1, std::vector<State>{ q2,q3 }, '1'), t03(q2, std::vector<State>{ q2 }, '0'), t04(q2, std::vector<State>{ q1 }, '1'), t05(q3, std::vector<State>{ q3 }, '0'), t06(q3, std::vector<State>{ q2 }, '1');
@@ -46,7 +46,7 @@ int main()
 	tt3.push_back(t15);
 	tt3.push_back(t16);
 	//构造FA
-	DFA f1(ss1, tt1);
+	//DFA f1(ss1, tt1);
 	//NFA f2(ss1, tt2);
 	//NFA f3(ss2, tt3);
 	////FA有成员函数addState用来在自动机内添加状态，返回State
@@ -58,13 +58,39 @@ int main()
 	//Transition t8 = f1.addTransition(q4, q3, '1');
 	//Transition t9 = f2.addTransition(q4, { q1,q2 }, '0');
 	//Transition t10 = f2.addTransition(q4, { q3,q4 }, '1');
-	std::string a = "(0+1)*";
-	std::string b = "0*10(01+1*)*01";
+	//std::string a = "(0+1)*";
+	//std::string b = "0*10(01+1*)*01";
 
 	//NFA f1(a);
 	//f1.print();
-	NFA f2(b);
+	std::vector<State> f1s;
+	f1s.push_back(q1);
+	f1s.push_back(q2);
+	f1s.push_back(q3);
+	f1s.push_back(q4);
+	f1s.push_back(q5);
+	f1s.push_back(q6);
+	Transition a(q1, q2, '0'),b(q1,q3,'1'),c(q2,q1,'0'),d(q2,q4,'1'),e(q3,q6,'1'),f(q3,q5,'0'),g(q4,q5,'0'),h(q4,q6,'1'),hh(q5,q5,'0'),hhh(q5,q6,'1'),hhhh(q6,q6,'0'),hhhhh(q6,q6,'1');
+	std::vector<Transition> tttt;
+	tttt.push_back(a);
+	tttt.push_back(b);
+	tttt.push_back(c);
+	tttt.push_back(d);
+	tttt.push_back(e);
+	tttt.push_back(f);
+	tttt.push_back(g);
+	tttt.push_back(h);
+	tttt.push_back(hh);
+	tttt.push_back(hhh);
+	tttt.push_back(hhhh);
+	tttt.push_back(hhhhh);
+
+	DFA f1(f1s, tttt);
+	f1.print();
+	DFA f2 = f1.minimizeDFA();
 	f2.print();
+	//NFA f2(b);
+	//f2.print();
 	//Transition t11 = f2.addTransition(q4, { q1,q3,q4 },epsi);
 	//打印
 	//f1.print();
@@ -84,8 +110,8 @@ int main()
 	//r1.addExp('B', "1B");
 	//r1.addExp('B', "1");
 	////正则文法打印
-	f1.print();
-	RG r1 = f1.convert();
-	r1.print();
+	//f1.print();
+	//RG r1 = f1.convert();
+	//r1.print();
 	return 0;
 }
