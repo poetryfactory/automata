@@ -1,0 +1,59 @@
+The system is: Windows - 10.0.19045 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: D:/QT/Tools/mingw1120_64/bin/gcc.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+
+The C compiler identification is GNU, found in "E:/zdj/Automata (3)/build/CMakeFiles/3.24.2/CompilerIdC/a.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: D:/QT/Tools/mingw1120_64/bin/g++.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+
+The CXX compiler identification is GNU, found in "E:/zdj/Automata (3)/build/CMakeFiles/3.24.2/CompilerIdCXX/a.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:/QT/Tools/mingw1120_64/bin/mingw32-make.exe -f Makefile cmTC_68794/fast && D:/QT/Tools/mingw1120_64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_68794.dir\build.make CMakeFiles/cmTC_68794.dir/build
+mingw32-make.exe[1]: Entering directory 'E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_68794.dir/testCCompiler.c.obj
+D:\QT\Tools\mingw1120_64\bin\gcc.exe    -o CMakeFiles\cmTC_68794.dir\testCCompiler.c.obj -c "E:\zdj\Automata (3)\build\CMakeFiles\CMakeTmp\testCCompiler.c"
+Linking C executable cmTC_68794.exe
+D:\QT\Tools\CMake_64\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_68794.dir\link.txt --verbose=1
+D:\QT\Tools\CMake_64\bin\cmake.exe -E rm -f CMakeFiles\cmTC_68794.dir/objects.a
+D:\QT\Tools\mingw1120_64\bin\ar.exe qc CMakeFiles\cmTC_68794.dir/objects.a @CMakeFiles\cmTC_68794.dir\objects1.rsp
+D:\QT\Tools\mingw1120_64\bin\gcc.exe -Wl,--whole-archive CMakeFiles\cmTC_68794.dir/objects.a -Wl,--no-whole-archive -o cmTC_68794.exe -Wl,--out-implib,libcmTC_68794.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_68794.dir\linklibs.rsp
+mingw32-make.exe[1]: Leaving directory 'E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp'
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):D:/QT/Tools/mingw1120_64/bin/mingw32-make.exe -f Makefile cmTC_54c14/fast && D:/QT/Tools/mingw1120_64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_54c14.dir\build.make CMakeFiles/cmTC_54c14.dir/build
+mingw32-make.exe[1]: Entering directory 'E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_54c14.dir/testCXXCompiler.cxx.obj
+D:\QT\Tools\mingw1120_64\bin\g++.exe    -o CMakeFiles\cmTC_54c14.dir\testCXXCompiler.cxx.obj -c "E:\zdj\Automata (3)\build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+Linking CXX executable cmTC_54c14.exe
+D:\QT\Tools\CMake_64\bin\cmake.exe -E cmake_link_script CMakeFiles\cmTC_54c14.dir\link.txt --verbose=1
+D:\QT\Tools\CMake_64\bin\cmake.exe -E rm -f CMakeFiles\cmTC_54c14.dir/objects.a
+D:\QT\Tools\mingw1120_64\bin\ar.exe qc CMakeFiles\cmTC_54c14.dir/objects.a @CMakeFiles\cmTC_54c14.dir\objects1.rsp
+D:\QT\Tools\mingw1120_64\bin\g++.exe -Wl,--whole-archive CMakeFiles\cmTC_54c14.dir/objects.a -Wl,--no-whole-archive -o cmTC_54c14.exe -Wl,--out-implib,libcmTC_54c14.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\cmTC_54c14.dir\linklibs.rsp
+mingw32-make.exe[1]: Leaving directory 'E:/zdj/Automata (3)/build/CMakeFiles/CMakeTmp'
+
+
+

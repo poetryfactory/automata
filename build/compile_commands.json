@@ -1,0 +1,42 @@
+[
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\main.cpp.obj -c \"E:\\zdj\\Automata (3)\\main.cpp\"",
+  "file": "E:/zdj/Automata (3)/main.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\DFA.cpp.obj -c \"E:\\zdj\\Automata (3)\\DFA.cpp\"",
+  "file": "E:/zdj/Automata (3)/DFA.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\NFA.cpp.obj -c \"E:\\zdj\\Automata (3)\\NFA.cpp\"",
+  "file": "E:/zdj/Automata (3)/NFA.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\State.cpp.obj -c \"E:\\zdj\\Automata (3)\\State.cpp\"",
+  "file": "E:/zdj/Automata (3)/State.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\Transition.cpp.obj -c \"E:\\zdj\\Automata (3)\\Transition.cpp\"",
+  "file": "E:/zdj/Automata (3)/Transition.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\RG.cpp.obj -c \"E:\\zdj\\Automata (3)\\RG.cpp\"",
+  "file": "E:/zdj/Automata (3)/RG.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\FA.cpp.obj -c \"E:\\zdj\\Automata (3)\\FA.cpp\"",
+  "file": "E:/zdj/Automata (3)/FA.cpp"
+},
+{
+  "directory": "E:/zdj/Automata (3)/build",
+  "command": "D:\\QT\\Tools\\mingw1120_64\\bin\\g++.exe  @CMakeFiles/ccc.dir/includes_CXX.rsp -g -std=gnu++14 -o CMakeFiles\\ccc.dir\\helper.cpp.obj -c \"E:\\zdj\\Automata (3)\\helper.cpp\"",
+  "file": "E:/zdj/Automata (3)/helper.cpp"
+}
+]
