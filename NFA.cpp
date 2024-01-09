@@ -1,6 +1,6 @@
 #include "NFA.h"
 
-std::string preOperation(const std::string &ex) // Ô¤´¦Àí¼ÓÁ¬½ÓºÅ
+std::string preOperation(const std::string &ex) // é¢„å¤„ç†åŠ è¿æ¥å·
 {
 	std::string infix;
 	for (int i = 0; i < ex.size(); ++i)
@@ -43,7 +43,7 @@ int getPrecedence(char op)
 std::string infixToPostfix(std::string infix)
 {
 	infix = preOperation(infix);
-	// std::cout << infix << std::endl;   Ô¤´¦Àí½á¹ûtest
+	// std::cout << infix << std::endl;   é¢„å¤„ç†ç»“æœtest
 	std::stack<char> opStack;
 	std::string postfix;
 
@@ -65,7 +65,7 @@ std::string infixToPostfix(std::string infix)
 				opStack.pop();
 			}
 			if (!opStack.empty())
-				opStack.pop(); // µ¯³ö'('
+				opStack.pop(); // å¼¹å‡º'('
 		}
 		else if (isOperator(c))
 		{
@@ -119,7 +119,7 @@ NFA::NFA(){
 NFA::NFA(std::string regex)
 {
 	std::string postfix = infixToPostfix(regex);
-	// std::cout << postfix << std::endl;   ºó×º½á¹ûtest
+	// std::cout << postfix << std::endl;   åç¼€ç»“æœtest
 	std::stack<NFA> nfaStack;
 
 	for (char c : postfix)
@@ -138,7 +138,7 @@ NFA::NFA(std::string regex)
 			switch (c)
 			{
 			case '.':
-			{ // Á¬½Ó²Ù×÷
+			{ // è¿æ¥æ“ä½œ
 				NFA nfa2 = nfaStack.top();
 				nfaStack.pop();
 				NFA nfa1 = nfaStack.top();
@@ -181,7 +181,7 @@ std::vector<State> NFA::getTransitionStates(State _from, int _input)
 
 void NFA::print()
 {
-	std::cout << "\t" << epsilon << "\t\t0\t\t1" << std::endl; // µÚÒ»ĞĞ
+	std::cout << "\t" << epsilon << "\t\t0\t\t1" << std::endl; // ç¬¬ä¸€è¡Œ
 	for (int i = 0; i < (int)this->States.size(); ++i)
 	{
 		std::string raw = "";
@@ -193,7 +193,7 @@ void NFA::print()
 		{
 			raw += "*";
 		}
-		raw += this->States[i].getName() + "\t{"; // ×´Ì¬
+		raw += this->States[i].getName() + "\t{"; // çŠ¶æ€
 		bool flag = 0;
 		for (auto &state : getTransitionStates(States[i], epsi))
 		{
@@ -202,10 +202,10 @@ void NFA::print()
 		}
 		if (flag)
 		{
-			raw.pop_back(); // È¥µô×îºóÒ»¸ö¶ººÅ
+			raw.pop_back(); // å»æ‰æœ€åä¸€ä¸ªé€—å·
 			flag = 0;
 		}
-		raw += "}\t\t{"; // ¿Õ×ªÒÆ
+		raw += "}\t\t{"; // ç©ºè½¬ç§»
 		for (auto &state : getTransitionStates(States[i], '0'))
 		{
 			flag = 1;
@@ -213,10 +213,10 @@ void NFA::print()
 		}
 		if (flag)
 		{
-			raw.pop_back(); // È¥µô×îºóÒ»¸ö¶ººÅ
+			raw.pop_back(); // å»æ‰æœ€åä¸€ä¸ªé€—å·
 			flag = 0;
 		}
-		raw += "}\t\t{"; // 0×ªÒÆ
+		raw += "}\t\t{"; // 0è½¬ç§»
 		for (auto &state : getTransitionStates(States[i], '1'))
 		{
 			flag = 1;
@@ -224,7 +224,7 @@ void NFA::print()
 		}
 		if (flag)
 		{
-			raw.pop_back(); // È¥µô×îºóÒ»¸ö¶ººÅ
+			raw.pop_back(); // å»æ‰æœ€åä¸€ä¸ªé€—å·
 			flag = 0;
 		}
 		raw += "}";
@@ -393,34 +393,37 @@ NFA NFA::close()
 	return nfa;
 }
 
-bool isEqual(std::vector<State> a, std::vector<State> b)
+bool isEqual(const std::vector<State> &a, const std::vector<State> &b)
 {
+
 	if (a.size() != b.size())
 		return false;
-	// °´ÕÕÃû×ÖÅÅĞò
-	std::sort(a.begin(), a.end(), [](State a, State b)
-			  { return a.getName() < b.getName(); });
-	std::sort(b.begin(), b.end(), [](State a, State b)
-			  { return a.getName() < b.getName(); });
-	for (int i = 0; i < a.size(); ++i)
+	int i, j;
+	for (i = 0; i < a.size(); ++i)
 	{
-		if (a[i].getName() != b[i].getName())
+		for (j = 0; j < b.size(); ++j)
+		{
+			if (a[i].getName() == b[j].getName())
+				break;
+		}
+		if (j == b.size()) // æ²¡æ‰¾åˆ°
 			return false;
 	}
+
 	return true;
 }
 
 DFA NFA::toDFA()
 {
 
-	std::set<char> inputs = {'0', '1'}; // ÊäÈë¼¯ºÏ
+	std::set<char> inputs = {'0', '1'}; // è¾“å…¥é›†åˆ
 
-	std::vector<std::vector<State>> DFAStates; // DFAµÄ×´Ì¬¼¯ºÏ,Ã¿¸öÔªËØÊÇÒ»¸ö×´Ì¬¼¯ºÏ
-	std::vector<Transition> DFATransitions;	   // DFAµÄ×ª»»¼¯ºÏ
+	std::vector<std::vector<State>> DFAStates; // DFAçš„çŠ¶æ€é›†åˆ,æ¯ä¸ªå…ƒç´ æ˜¯ä¸€ä¸ªçŠ¶æ€é›†åˆ
+	std::vector<Transition> DFATransitions;	   // DFAçš„è½¬æ¢é›†åˆ
 
-	std::vector<State> startState = closure({this->getStartState()}); // NFAµÄÆğÊ¼×´Ì¬¼¯ºÏ
+	std::vector<State> startState = closure({this->getStartState()}); // NFAçš„èµ·å§‹çŠ¶æ€é›†åˆ
 
-	// ÓÃÀ´´æ´¢DFAµÄ×´Ì¬¼¯ºÏµÄ¶ÓÁĞ
+	// ç”¨æ¥å­˜å‚¨DFAçš„çŠ¶æ€é›†åˆçš„é˜Ÿåˆ—
 	std::queue<std::vector<State>> stateQueue;
 	stateQueue.push(startState);
 	while (!stateQueue.empty())
@@ -428,7 +431,6 @@ DFA NFA::toDFA()
 		// std::cout << stateQueue.size() << std::endl;
 		auto state = stateQueue.front();
 		stateQueue.pop();
-		DFAStates.push_back(state);
 		for (auto &input : inputs)
 		{
 			if (state.empty())
@@ -437,33 +439,57 @@ DFA NFA::toDFA()
 			// std::cout << std::endl;
 			if (newState.empty())
 				continue;
-			// Èç¹ûĞÂ×´Ì¬¼¯ºÏ²»ÔÚDFAµÄ×´Ì¬¼¯ºÏÖĞ£¬Ôò¼ÓÈë¶ÓÁĞ
+			// å¦‚æœæ–°çŠ¶æ€é›†åˆä¸åœ¨DFAçš„çŠ¶æ€é›†åˆä¸­ï¼Œåˆ™åŠ å…¥é˜Ÿåˆ—
 			bool isNewState = true;
-			for (auto &s : DFAStates)
+			if (DFAStates.empty())
 			{
-				if (isEqual(s, newState))
+				DFAStates.push_back(state); // åŠ å…¥é˜Ÿåˆ—
+			}
+			else
+			{
+				for (const auto &s : DFAStates)
 				{
-					isNewState = false;
-					break;
+					if (isEqual(s, newState)) // å¦‚æœæ–°çŠ¶æ€é›†åˆå·²ç»åœ¨DFAçš„çŠ¶æ€é›†åˆä¸­ï¼Œåˆ™ä¸åŠ å…¥é˜Ÿåˆ—
+					{
+						isNewState = false; // ä¸æ˜¯æ–°çŠ¶æ€
+						break;
+					}
 				}
 			}
 			if (isNewState)
 			{
+				// for (const auto &s : DFAStates)
+				// {
+				// 	std::cout << "DFAStates:" << std::endl;
+				// 	for (const auto &i : s)
+				// 	{
+				// 		std::cout << i.getName() << " ";
+				// 	}
+				// 	std::cout << std::endl;
+				// }
+
+				// std::cout << "newState:" << std::endl;
+				// for (const auto &i : newState)
+				// {
+				// 	std::cout << i.getName() << " ";
+				// }
+				// std::cout << std::endl;
 
 				stateQueue.push(newState);
+				DFAStates.push_back(newState);
 			}
 		}
 	}
 
-	// ×´Ì¬ÖØĞÂ±àºÅ
+	// çŠ¶æ€é‡æ–°ç¼–å·
 	std::vector<State> newStates;
 	State newStartState;
 
-	std::vector<State> DFAEndStates; // DFAµÄÖÕÖ¹×´Ì¬¼¯ºÏ
+	std::vector<State> DFAEndStates; // DFAçš„ç»ˆæ­¢çŠ¶æ€é›†åˆ
 
 	for (int i = 0; i < (int)DFAStates.size(); ++i)
 	{
-		// Èç¹ûÊÇ¿ªÊ¼×´Ì¬
+		// å¦‚æœæ˜¯å¼€å§‹çŠ¶æ€
 		if (std::find(DFAStates[i].begin(), DFAStates[i].end(), this->getStartState()) != DFAStates[i].end())
 		{
 			newStartState = State("q" + std::to_string(i), START_TYPE);
@@ -471,7 +497,7 @@ DFA NFA::toDFA()
 			continue;
 		}
 
-		// Èç¹ûÊÇÖÕÖ¹×´Ì¬
+		// å¦‚æœæ˜¯ç»ˆæ­¢çŠ¶æ€
 		bool isEndState = false;
 		for (auto &endState : this->getEndStates())
 		{
@@ -491,7 +517,7 @@ DFA NFA::toDFA()
 			newStates.push_back(State("q" + std::to_string(i), NORMAL_TYPE));
 		}
 	}
-	// ´òÓ¡DFAµÄ×´Ì¬¼¯ºÏ
+	// æ‰“å°DFAçš„çŠ¶æ€é›†åˆ
 	std::cout << "DFAStates:" << std::endl;
 	int i = 0;
 	for (const auto &state : newStates)
@@ -505,7 +531,7 @@ DFA NFA::toDFA()
 		++i;
 	}
 
-	// ¹¹ÔìDFAµÄ×ª»»¼¯ºÏ
+	// æ„é€ DFAçš„è½¬æ¢é›†åˆ
 	for (int i = 0; i < (int)DFAStates.size(); ++i)
 	{
 		for (auto &input : inputs)
@@ -513,7 +539,7 @@ DFA NFA::toDFA()
 			auto newState = closure(move(DFAStates[i], input));
 			if (newState.empty())
 				continue;
-			// Èç¹ûĞÂ×´Ì¬¼¯ºÏ²»ÔÚDFAµÄ×´Ì¬¼¯ºÏÖĞ£¬Ôò¼ÓÈë¶ÓÁĞ
+			// å¦‚æœæ–°çŠ¶æ€é›†åˆä¸åœ¨DFAçš„çŠ¶æ€é›†åˆä¸­ï¼Œåˆ™åŠ å…¥é˜Ÿåˆ—
 			int j = 0;
 			bool hasState = false;
 			for (; j < DFAStates.size(); ++j)
@@ -529,63 +555,57 @@ DFA NFA::toDFA()
 		}
 	}
 
-	std::string htmlFile = "<html>\n"
-						   "<body>\n"
-						   "<script src=\"https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js\"></script>\n"
-						   "<script>mermaid.initialize({startOnLoad:true});</script>\n"
-						   "\n"
-						   "NFA:\n"
-						   "<div class=\"mermaid\">\n"
-						   "graph LR\n";
-	// ½âÎöNFA
-	for (const auto &i : Transitions)
-	{
-		htmlFile += i.first.first.getName();
-		htmlFile += "((";
-		htmlFile += i.first.first.getName(); // ×´Ì¬Ãû
-		htmlFile += "))\n";
-	}
+	// std::string htmlFile="<html>\n"
+	//                      "<body>\n"
+	//                      "<script src=\"https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js\"></script>\n"
+	//                      "<script>mermaid.initialize({startOnLoad:true});</script>\n"
+	//                      "\n"
+	//                      "NFA:\n"
+	//                      "<div class=\"mermaid\">\n"
+	//                      "graph LR\n";
+	// // è§£æNFA
+	// for(const auto&i:Transitions) {
+	// 	htmlFile+=i.first.first.getName();
+	// 	htmlFile+="((";
+	// 	htmlFile+=i.first.first.getName(); // çŠ¶æ€å
+	// 	htmlFile+="))\n";
+	// }
 
-	htmlFile += "style " + this->getStartState().getName() + " fill:#9f6,stroke:#333,stroke-width:2px\n";
+	// htmlFile+="style "+this->getStartState().getName()+" fill:#9f6,stroke:#333,stroke-width:2px\n";
 
-	for (const auto &i : Transitions)
-	{
-		for (const auto &j : i.second)
-		{
-			std::string tmp = i.first.second == -1 ? "epsilon" : std::string(1, i.first.second); // Èç¹ûÊÇE,Ôò×ª»»Îª×Ö·û´®epsilon
-			htmlFile += i.first.first.getName() + "--" + tmp + "-->" + j.getName() + "\n";
-		}
-	}
+	// for(const auto&i:Transitions) {
+	// 	for(const auto&j:i.second) {
+	// 		std::string tmp=i.first.second==-1?"epsilon":std::string(1,i.first.second); // å¦‚æœæ˜¯E,åˆ™è½¬æ¢ä¸ºå­—ç¬¦ä¸²epsilon
+	// 		htmlFile +=i.first.first.getName() + "--" + tmp + "-->" + j.getName() + "\n";
+	// 	}
+	// }
 
-	htmlFile += "</div>\n"
-				"DFA:\n"
-				"<div class=\"mermaid\">\n";
-	// ½âÎöDFA
-	htmlFile += "graph LR\n";
-	for (const auto &i : newStates)
-	{
-		htmlFile += i.getName();
-		htmlFile += "((";
-		htmlFile += i.getName(); // ×´Ì¬Ãû
-		htmlFile += "))\n";
-	}
-	// ×ª»»
-	for (const auto &i : DFATransitions)
-	{
-		htmlFile += i.getFromState().getName() + "--" + std::string(1, i.getInput()) + "-->" + i.getToState().getName() + "\n";
-	}
-	htmlFile += "style " + newStartState.getName() + " fill:#9f6,stroke:#333,stroke-width:2px\n";
-	for (const auto &i : DFAEndStates)
-	{
-		htmlFile += "style " + i.getName() + " fill:red,stroke:#444,stroke-width:2px\n";
-	}
-	htmlFile += "</div>\n"
-				"</body>\n"
-				"</html>";
-	// Ğ´Èë£¬Èç¹ûÃ»ÓĞÔò´´½¨
-	std::ofstream out("graph.html", std::ios::out);
-	out << htmlFile;
-	out.close();
+	// htmlFile+="</div>\n"
+	//           "DFA:\n"
+	//           "<div class=\"mermaid\">\n";
+	// // è§£æDFA
+	// htmlFile+="graph LR\n";
+	// for(const auto&i:newStates){
+	// 	htmlFile+=i.getName();
+	// 	htmlFile+="((";
+	// 	htmlFile+=i.getName(); // çŠ¶æ€å
+	// 	htmlFile+="))\n";
+	// }
+	// // è½¬æ¢
+	// for(const auto& i:DFATransitions){
+	// 	htmlFile+=i.getFromState().getName()+"--"+std::string(1,i.getInput())+"-->"+i.getToState().getName()+"\n";
+	// }
+	// htmlFile+="style "+ newStartState.getName() +" fill:#9f6,stroke:#333,stroke-width:2px\n";
+	// for(const auto&i:DFAEndStates){
+	// 	htmlFile+="style "+i.getName() +" fill:red,stroke:#444,stroke-width:2px\n";
+	// }
+	// htmlFile+="</div>\n"
+	//           "</body>\n"
+	//           "</html>";
+	// // å†™å…¥ï¼Œå¦‚æœæ²¡æœ‰åˆ™åˆ›å»º
+	// std::ofstream out("graph.html", std::ios::out);
+	// out << htmlFile;
+	// out.close();
 
 	return DFA(newStartState, DFAEndStates, newStates, DFATransitions);
 }
@@ -597,9 +617,9 @@ std::vector<State> NFA::closure(const std::vector<State> &_states)
 	std::vector<State> res;
 	for (auto &state : _states)
 	{
-		res.push_back(state); // ÏÈ°Ñ×Ô¼º¼Ó½øÈ¥
+		res.push_back(state); // å…ˆæŠŠè‡ªå·±åŠ è¿›å»
 	}
-	bool isNewState = true; // ÅĞ¶ÏÊÇ·ñÓĞĞÂµÄ×´Ì¬¼ÓÈë
+	bool isNewState = true; // åˆ¤æ–­æ˜¯å¦æœ‰æ–°çš„çŠ¶æ€åŠ å…¥
 	while (isNewState)
 	{
 		isNewState = false;
@@ -612,7 +632,7 @@ std::vector<State> NFA::closure(const std::vector<State> &_states)
 				continue;
 			for (auto newState : getTransitionStates(state, epsi))
 			{
-				// Èç¹ûĞÂ×´Ì¬¼¯ºÏÖĞÃ»ÓĞ¸Ã×´Ì¬£¬Ôò¼ÓÈë
+				// å¦‚æœæ–°çŠ¶æ€é›†åˆä¸­æ²¡æœ‰è¯¥çŠ¶æ€ï¼Œåˆ™åŠ å…¥
 				int i = 0;
 				for (; i < res.size(); ++i)
 				{
@@ -641,7 +661,7 @@ std::vector<State> NFA::move(const std::vector<State> &_states, char _input)
 			continue;
 		for (auto &newState : getTransitionStates(state, _input))
 		{
-			// Èç¹ûĞÂ×´Ì¬¼¯ºÏÖĞÃ»ÓĞ¸Ã×´Ì¬£¬Ôò¼ÓÈë
+			// å¦‚æœæ–°çŠ¶æ€é›†åˆä¸­æ²¡æœ‰è¯¥çŠ¶æ€ï¼Œåˆ™åŠ å…¥
 			int i = 0;
 			for (; i < res.size(); ++i)
 			{
