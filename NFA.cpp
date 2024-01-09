@@ -554,59 +554,6 @@ DFA NFA::toDFA()
 				DFATransitions.push_back(Transition(newStates[i], newStates[j], input));
 		}
 	}
-
-	// std::string htmlFile="<html>\n"
-	//                      "<body>\n"
-	//                      "<script src=\"https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js\"></script>\n"
-	//                      "<script>mermaid.initialize({startOnLoad:true});</script>\n"
-	//                      "\n"
-	//                      "NFA:\n"
-	//                      "<div class=\"mermaid\">\n"
-	//                      "graph LR\n";
-	// // 解析NFA
-	// for(const auto&i:Transitions) {
-	// 	htmlFile+=i.first.first.getName();
-	// 	htmlFile+="((";
-	// 	htmlFile+=i.first.first.getName(); // 状态名
-	// 	htmlFile+="))\n";
-	// }
-
-	// htmlFile+="style "+this->getStartState().getName()+" fill:#9f6,stroke:#333,stroke-width:2px\n";
-
-	// for(const auto&i:Transitions) {
-	// 	for(const auto&j:i.second) {
-	// 		std::string tmp=i.first.second==-1?"epsilon":std::string(1,i.first.second); // 如果是E,则转换为字符串epsilon
-	// 		htmlFile +=i.first.first.getName() + "--" + tmp + "-->" + j.getName() + "\n";
-	// 	}
-	// }
-
-	// htmlFile+="</div>\n"
-	//           "DFA:\n"
-	//           "<div class=\"mermaid\">\n";
-	// // 解析DFA
-	// htmlFile+="graph LR\n";
-	// for(const auto&i:newStates){
-	// 	htmlFile+=i.getName();
-	// 	htmlFile+="((";
-	// 	htmlFile+=i.getName(); // 状态名
-	// 	htmlFile+="))\n";
-	// }
-	// // 转换
-	// for(const auto& i:DFATransitions){
-	// 	htmlFile+=i.getFromState().getName()+"--"+std::string(1,i.getInput())+"-->"+i.getToState().getName()+"\n";
-	// }
-	// htmlFile+="style "+ newStartState.getName() +" fill:#9f6,stroke:#333,stroke-width:2px\n";
-	// for(const auto&i:DFAEndStates){
-	// 	htmlFile+="style "+i.getName() +" fill:red,stroke:#444,stroke-width:2px\n";
-	// }
-	// htmlFile+="</div>\n"
-	//           "</body>\n"
-	//           "</html>";
-	// // 写入，如果没有则创建
-	// std::ofstream out("graph.html", std::ios::out);
-	// out << htmlFile;
-	// out.close();
-
 	return DFA(newStartState, DFAEndStates, newStates, DFATransitions);
 }
 
