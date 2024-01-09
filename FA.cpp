@@ -2,12 +2,13 @@
 
 FA::FA(State _startState, std::vector<State> _endStates, std::vector<State> _states, std::vector<Transition> _transitions)
 {
+	//_states.push_back(State("q100", NORMAL_TYPE));
 	this->id = 0;
 	this->startState = _startState;
 	this->endStates = _endStates;
 	this->States = _states;
 	this->id = 0;
-	for (auto& state : _states)
+	for (auto &state : _states)
 	{
 		state.setID(id);
 		hash[id] = state.getName();
@@ -15,18 +16,18 @@ FA::FA(State _startState, std::vector<State> _endStates, std::vector<State> _sta
 	}
 };
 
-FA::FA()
-{
+FA::FA(){
 
 };
 
 FA::FA(std::vector<State> _states, std::vector<Transition> _transitions)
 {
 	this->id = 0;
+	//_states.push_back(State("q100", NORMAL_TYPE));
 	State st;
 	this->startState = st;
 	std::vector<State> ends;
-	for (auto& state : _states)
+	for (auto &state : _states)
 	{
 		state.setID(id);
 		hash[id] = state.getName();

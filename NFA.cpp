@@ -530,15 +530,19 @@ DFA NFA::toDFA()
 		std::cout << std::endl;
 		++i;
 	}
-
+	State trap("q100", NORMAL_TYPE);
+	bool hasTrap = false;
 	// 构造DFA的转换集合
-	for (int i = 0; i < (int)DFAStates.size(); ++i)
+	int n = DFAStates.size();
+	for (int i = 0; i < n; ++i)
 	{
 		for (auto &input : inputs)
 		{
 			auto newState = closure(move(DFAStates[i], input));
 			if (newState.empty())
+			{
 				continue;
+			}
 			// 如果新状态集合不在DFA的状态集合中，则加入队列
 			int j = 0;
 			bool hasState = false;

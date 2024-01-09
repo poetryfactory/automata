@@ -8,16 +8,17 @@
 
 int main()
 {
-	std::string a = "0+1";
-	std::string b = "0*10(01+1*)*01";
-	std::string c = "(10*1+00*10*1)*00*";
-	NFA f1(c);
+	std::string re = "0*10(01+1*)*01";
+	// std::cin >> re;
+	NFA f1(re);
 	f1.print();
 	DFA f2 = f1.toDFA();
 	f2.print();
 	DFA f3 = f2.minimizeDFA();
+	// freopen("ans_1.txt", "w", stdout);
 	f3.print();
 	RG r1 = f3.convert();
+	// freopen("rg_1.txt", "w", stdout);
 	r1.print();
 	return 0;
 }

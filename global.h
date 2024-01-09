@@ -24,13 +24,13 @@
 #include <utility>
 #include <tuple>
 #include <exception>
-#define INIT_NAME "undefined"
+#define INIT_NAME "q100"
 #define INIT_ID -1
 #define INIT_TYPE 0
 #define NORMAL_TYPE 0
 #define START_TYPE 1
 #define END_TYPE 2
 #define epsi -1
-#define STEXP std::cerr<<"重复的初始状态！"<<std::endl
-#define NVEXP std::cerr<<"生成式左端不是非终结符！"<<std::endl
+#define STEXP std::cerr << "重复的初始状态！" << std::endl
+#define NVEXP std::cerr << "生成式左端不是非终结符！" << std::endl
 const std::string epsilon = "epsi";
