@@ -6,15 +6,20 @@ DFA::DFA(){
 
 DFA::DFA(State _startState, std::vector<State> _endStates, std::vector<State> _states, std::vector<Transition> _transitions) : FA(_startState, _endStates, _states, _transitions)
 {
+	State trap = State("q100", NORMAL_TYPE);
+	bool flag = 1;
 	for (auto &t : _transitions)
 	{
 		Transitions[{t.getFromState(), t.getInput()}] = t.getToState();
+		if (_transitions.size() < 2 * _states.size())
+		{
+			flag = 0;
+		}
 	}
-	if (_transitions.size() < 2 * _states.size())
+	if (!flag)
 	{
-		State trap = State("q100", NORMAL_TYPE);
 		this->addState(trap);
-		for (auto state : _states)
+		for (auto state : States)
 		{
 			for (char i = '0'; i <= '1'; ++i)
 			{
@@ -34,7 +39,7 @@ DFA::DFA(std::vector<State> _states, std::vector<Transition> _transitions) : FA(
 	for (auto &t : _transitions)
 	{
 		Transitions[{t.getFromState(), t.getInput()}] = t.getToState();
-		if (t.getToState() == trap)
+		if (_transitions.size() < 2 * _states.size())
 		{
 			flag = 0;
 		}
@@ -42,7 +47,7 @@ DFA::DFA(std::vector<State> _states, std::vector<Transition> _transitions) : FA(
 	if (!flag)
 	{
 		this->addState(trap);
-		for (auto state : _states)
+		for (auto state : States)
 		{
 			for (char i = '0'; i <= '1'; ++i)
 			{
