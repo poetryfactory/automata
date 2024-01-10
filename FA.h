@@ -3,10 +3,10 @@
 #include "State.h"
 #include "Transition.h"
 
-//自定义哈希函数，用于unordered_map
+// 自定义哈希函数，用于unordered_map
 struct Equal
 {
-	bool operator () (const std::pair<State, char>& lhs, const std::pair<State, char>& rhs) const
+	bool operator()(const std::pair<State, char> &lhs, const std::pair<State, char> &rhs) const
 	{
 		return lhs.first == rhs.first && lhs.second == rhs.second;
 	}
@@ -14,10 +14,10 @@ struct Equal
 
 struct Hash
 {
-	std::size_t operator() (const std::pair<State, char>& self) const
+	std::size_t operator()(const std::pair<State, char> &self) const
 	{
-		static 	std::hash<std::string> hash_str;
-		return hash_str(self.first.getName() + self.second)+(self.second<<5)*(self.first.getName()[1]<<3);
+		static std::hash<std::string> hash_str;
+		return hash_str(self.first.getName() + self.second) + (self.second << 5) * (self.first.getName()[1] << 3);
 	}
 };
 
@@ -33,10 +33,9 @@ public:
 	std::vector<State> getEndStates();
 	void addState(State _state);
 	std::vector<State> getStates();
-	State addState(std::string _name,int _type);
-	virtual void addTransition(Transition _tr)=0;
-	virtual void print()=0;
-	//static size_t myHash(const std::pair<State,char>& self) noexcept;
+	State addState(std::string _name, int _type);
+	virtual void addTransition(Transition _tr) = 0;
+	// static size_t myHash(const std::pair<State,char>& self) noexcept;
 protected:
 	State startState;
 	std::vector<State> endStates;

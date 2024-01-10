@@ -1,0 +1,8 @@
+A > 0B|1C
+B > 1C|0B
+C > 0D|1H
+D > 0E|1F
+E > 1G|1|0H
+F > 0E|1F
+G > 1F|0E
+H > 0H|1H

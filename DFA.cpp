@@ -65,7 +65,7 @@ State DFA::getTransitionState(State _from, int _input)
 	return Transitions[{_from, _input}];
 };
 
-void DFA::print()
+void DFA::print(int _output_name_index)
 {
 	std::cout << "\t0\t1" << std::endl; // µÚÒ»ÐÐ
 	std::fstream printDFA;
@@ -90,7 +90,8 @@ void DFA::print()
 	}
 	printDFA.open("DFA.dot", std::ios::app);
 	printDFA << "}" << std::endl;
-	system("dot -Tpng DFA.dot -o DFA.png");
+	std::string command = "dot -Tpng DFA.dot -o dfa_"+std::to_string(_output_name_index)+".png";
+	system(command.c_str());
 };
 
 void DFA::printGraph(const std::string &col)

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GLOBAL_H
+#define GLOBAL_H
 #include <algorithm>
 #include <iostream>
 #include <string>
@@ -34,3 +35,4 @@
 #define STEXP std::cerr << "重复的初始状态！" << std::endl
 #define NVEXP std::cerr << "生成式左端不是非终结符！" << std::endl
 const std::string epsilon = "epsi";
+#endif

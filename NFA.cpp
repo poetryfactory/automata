@@ -518,21 +518,20 @@ DFA NFA::toDFA()
 		}
 	}
 	// 打印DFA的状态集合
-	std::cout << "DFAStates:" << std::endl;
-	int i = 0;
-	for (const auto &state : newStates)
-	{
-		std::cout << state.getName() << " ";
-		for (int j = 0; j < DFAStates[i].size(); ++j)
-		{
-			std::cout << DFAStates[i][j].getName() << " ";
-		}
-		std::cout << std::endl;
-		++i;
-	}
+	// std::cout << "DFAStates:" << std::endl;
+	// int i = 0;
+	// for (const auto &state : newStates)
+	// {
+	// 	std::cout << state.getName() << " ";
+	// 	for (int j = 0; j < DFAStates[i].size(); ++j)
+	// 	{
+	// 		std::cout << DFAStates[i][j].getName() << " ";
+	// 	}
+	// 	std::cout << std::endl;
+	// 	++i;
+	// }
 	State trap("q100", NORMAL_TYPE);
 	bool hasTrap = false;
-	// 构造DFA的转换集合
 	int n = DFAStates.size();
 	for (int i = 0; i < n; ++i)
 	{
