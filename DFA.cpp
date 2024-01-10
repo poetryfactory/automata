@@ -109,49 +109,35 @@ void DFA::printGraph(const std::string &col)
 		printDFA << "{rank=\"same\";s;"
 				 << "q" << col[2] << "}" << std::endl;
 		printDFA << "s->q" << col[2] << "[label = \"\\n\"];" << std::endl;
-		if (col[5] == '1' || col[5] == '2' || col[5] == '3')
-		{
-			printDFA << "q" << col[5] << ";" << std::endl;
-			printDFA << "{rank=\"same\";q" << col[2] << ";"
-					 << "q" << col[5] << " }" << std::endl;
-			printDFA << "q" << col[2] << "->"
-					 << "q" << col[5] << "[label = \"0\"];" << std::endl;
-		}
-		if (col[8] == '1' || col[8] == '2' || col[8] == '3')
-		{
-			printDFA << "q" << col[8] << ";" << std::endl;
-			printDFA << "q" << col[2] << "->q" << col[8] << "[label=\"1\"];" << std::endl;
-		}
+		printDFA << "q" << col[5] << ";" << std::endl;
+		printDFA << "{rank=\"same\";q" << col[2] << ";"
+				 << "q" << col[5] << " }" << std::endl;
+		printDFA << "q" << col[2] << "->"
+				 << "q" << col[5] << "[label = \"0\"];" << std::endl;
+		printDFA << "q" << col[8] << ";" << std::endl;
+		printDFA << "q" << col[2] << "->q" << col[8] << "[label=\"1\"];" << std::endl;
 	}
 	if (col[0] != '#' && col[0] != '*')
 	{
 		printDFA << "q" << col[1] << ";" << std::endl;
-		if (col[4] == '1' || col[4] == '2' || col[4] == '3')
-		{
-			printDFA << "q" << col[4] << ";" << std::endl;
-			printDFA << "q" << col[1] << "->q" << col[4] << "[label = \"0\"];" << std::endl;
-		}
-		if (col[7] == '1' || col[7] == '2' || col[7] == '3')
-		{
-			printDFA << "q" << col[7] << ";" << std::endl;
-			printDFA << "q" << col[1] << "->q" << col[7] << "[label=\"1\"];" << std::endl;
-		}
+
+		printDFA << "q" << col[4] << ";" << std::endl;
+		printDFA << "q" << col[1] << "->q" << col[4] << "[label = \"0\"];" << std::endl;
+
+		printDFA << "q" << col[7] << ";" << std::endl;
+		printDFA << "q" << col[1] << "->q" << col[7] << "[label=\"1\"];" << std::endl;
 	}
 	if (col[0] == '*')
 	{
 		printDFA << "q" << col[2] << "[shape=\"doublecircle\"];" << std::endl;
-		if (col[5] == '1' || col[5] == '2' || col[5] == '3')
-		{
-			printDFA << "q" << col[5] << ";" << std::endl;
-			printDFA << "q" << col[2] << "->"
-					 << "q" << col[5] << "[label = \"0\"];" << std::endl;
-		}
-		if (col[8] == '1' || col[8] == '2' || col[8] == '3')
-		{
-			printDFA << "q" << col[8] << ";" << std::endl;
-			printDFA << "q" << col[2] << "->"
-					 << "q" << col[8] << "[label = \"1\"];" << std::endl;
-		}
+
+		printDFA << "q" << col[5] << ";" << std::endl;
+		printDFA << "q" << col[2] << "->"
+				 << "q" << col[5] << "[label = \"0\"];" << std::endl;
+
+		printDFA << "q" << col[8] << ";" << std::endl;
+		printDFA << "q" << col[2] << "->"
+				 << "q" << col[8] << "[label = \"1\"];" << std::endl;
 	}
 	printDFA.close();
 }
